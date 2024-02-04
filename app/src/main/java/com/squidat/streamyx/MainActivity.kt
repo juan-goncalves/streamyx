@@ -1,21 +1,11 @@
 package com.squidat.streamyx
 
-import android.os.Build
 import android.os.Bundle
-import android.view.WindowInsets
-import android.view.WindowInsetsController
-import android.view.WindowManager
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.bumble.appyx.core.integration.NodeHost
-import com.bumble.appyx.core.integrationpoint.NodeActivity
+import androidx.compose.ui.platform.LocalLifecycleOwner
+import com.bumble.appyx.navigation.integration.NodeActivity
+import com.bumble.appyx.navigation.platform.AndroidLifecycle
+import com.bumble.appyx.navigation.integration.NodeHost
 import com.squidat.streamyx.nodes.RootNode
 import com.squidat.streamyx.ui.theme.StreamyxTheme
 
@@ -26,9 +16,11 @@ class MainActivity : NodeActivity() {
 
         setContent {
             StreamyxTheme {
-                NodeHost(integrationPoint = appyxIntegrationPoint) {
-                    RootNode(it)
-                }
+                NodeHost(
+                    lifecycle = AndroidLifecycle(LocalLifecycleOwner.current.lifecycle),
+                    integrationPoint = appyxV2IntegrationPoint,
+                    factory = { RootNode(it) }
+                )
             }
         }
     }
