@@ -6,7 +6,7 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import com.bumble.appyx.navigation.integration.NodeActivity
 import com.bumble.appyx.navigation.platform.AndroidLifecycle
 import com.bumble.appyx.navigation.integration.NodeHost
-import com.squidat.streamyx.nodes.RootNode
+import com.squidat.streamyx.nodes.root.RootNode
 import com.squidat.streamyx.ui.theme.StreamyxTheme
 
 class MainActivity : NodeActivity() {
