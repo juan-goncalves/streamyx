@@ -31,8 +31,8 @@ private fun Feed(
     modifier: Modifier = Modifier,
     videos: ImmutableList<Video>,
 ) {
-    Surface {
-        LazyColumn(modifier = modifier) {
+    Surface(modifier = modifier) {
+        LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(videos) { video ->
                 VideoPreview(
                     videoTitle = video.title,

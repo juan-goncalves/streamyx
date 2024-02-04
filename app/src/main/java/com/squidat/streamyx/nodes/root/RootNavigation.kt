@@ -8,6 +8,15 @@ sealed interface RootNavigation : Parcelable {
     sealed interface Content : RootNavigation {
         @Parcelize
         data object Feed : Content
+
+        @Parcelize
+        data object Inbox : Content
+
+        @Parcelize
+        data object Favorites : Content
+
+        @Parcelize
+        data object You : Content
     }
 
     sealed interface Permanent : RootNavigation {

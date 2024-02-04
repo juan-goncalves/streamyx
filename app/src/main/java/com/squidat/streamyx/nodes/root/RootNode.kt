@@ -2,6 +2,7 @@ package com.squidat.streamyx.nodes.root
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.bumble.appyx.components.spotlight.Spotlight
@@ -14,8 +15,10 @@ import com.bumble.appyx.navigation.composable.AppyxNavigationContainer
 import com.bumble.appyx.navigation.composable.PermanentChild
 import com.bumble.appyx.navigation.modality.NodeContext
 import com.bumble.appyx.navigation.node.Node
+import com.bumble.appyx.navigation.node.node
 import com.squidat.streamyx.components.StreamyxToolbar
 import com.squidat.streamyx.nodes.bottom_navigation.BottomNavigationNode
+import com.squidat.streamyx.nodes.bottom_navigation.BottomNavigationNode.Tab
 import com.squidat.streamyx.nodes.feed.FeedNode
 
 class RootNode(
@@ -25,11 +28,24 @@ class RootNode(
 ) : Node<RootNavigation>(
     nodeContext = nodeContext,
     appyxComponent = permanent + spotlight,
+    plugins = listOf(RootInteractor(spotlight))
 ) {
 
     override fun buildChildNode(navTarget: RootNavigation, nodeContext: NodeContext): Node<*> {
         return when (navTarget) {
             RootNavigation.Content.Feed -> FeedNode(nodeContext)
+            RootNavigation.Content.Inbox -> node(nodeContext) {
+                Text(text = "Inbox!")
+            }
+
+            RootNavigation.Content.Favorites -> node(nodeContext) {
+                Text(text = "Favorites!")
+            }
+
+            RootNavigation.Content.You -> node(nodeContext) {
+                Text(text = "You!")
+            }
+
             RootNavigation.Permanent.NavigationBar -> BottomNavigationNode(nodeContext)
         }
     }
@@ -54,7 +70,7 @@ class RootNode(
 private fun NodeContext.buildSpotlight(): Spotlight<RootNavigation> {
     return Spotlight(
         model = SpotlightModel(
-            items = listOf(RootNavigation.Content.Feed),
+            items = spotlightItems,
             savedStateMap = savedStateMap,
         ),
         visualisation = { SpotlightFader(it) },
@@ -69,3 +85,14 @@ private fun NodeContext.buildPermanent(): PermanentAppyxComponent<RootNavigation
         ),
     )
 }
+
+val spotlightItems: List<RootNavigation>
+    get() = Tab.entries.map(Tab::navigationTarget)
+
+val Tab.navigationTarget: RootNavigation
+    get() = when (this) {
+        Tab.Home -> RootNavigation.Content.Feed
+        Tab.Inbox -> RootNavigation.Content.Inbox
+        Tab.Favorites -> RootNavigation.Content.Favorites
+        Tab.You -> RootNavigation.Content.You
+    }

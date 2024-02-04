@@ -61,7 +61,7 @@ private fun Logo() {
 
 @Composable
 private fun Actions() {
-    Row() {
+    Row {
         IconButton(
             onClick = {},
             content = {
@@ -69,6 +69,7 @@ private fun Actions() {
                     modifier = Modifier.size(24.dp),
                     imageVector = Icons.Filled.Notifications,
                     contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onSurface,
                 )
             }
         )
@@ -80,6 +81,7 @@ private fun Actions() {
                     modifier = Modifier.size(24.dp),
                     imageVector = Icons.Filled.Settings,
                     contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onSurface,
                 )
             }
         )
