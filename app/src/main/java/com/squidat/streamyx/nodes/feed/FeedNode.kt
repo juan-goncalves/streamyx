@@ -39,6 +39,7 @@ private fun Feed(
                     channelName = video.postedBy.name,
                     views = video.views,
                     postedAt = video.postedAt,
+                    onClick = {},
                 )
                 Spacer(Modifier.size(12.dp))
             }

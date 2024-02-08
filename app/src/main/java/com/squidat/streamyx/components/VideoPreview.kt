@@ -1,6 +1,7 @@
 package com.squidat.streamyx.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,6 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.squidat.streamyx.ui.theme.Bee
 import com.squidat.streamyx.ui.theme.StreamyxTheme
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
@@ -33,13 +36,17 @@ fun VideoPreview(
     channelName: String,
     views: Long,
     postedAt: LocalDateTime,
+    onClick: () -> Unit,
 ) {
-    Column(modifier = modifier) {
+    Column(
+        modifier = modifier
+            .clickable(onClick = onClick),
+    ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(200.dp)
-                .background(Color.Yellow),
+                .background(Bee),
         )
 
         VideoDetails(
@@ -75,7 +82,7 @@ private fun VideoDetails(
             modifier = Modifier
                 .size(36.dp)
                 .clip(CircleShape)
-                .background(Color.Yellow),
+                .background(Bee),
         )
         Spacer(Modifier.size(4.dp))
         Column {
@@ -126,6 +133,7 @@ private fun VideoPreviewPreview() {
             channelName = "G2 Sports",
             views = 3_543_000L,
             postedAt = LocalDateTime.now().plusHours(10),
+            onClick = {},
         )
     }
 }
