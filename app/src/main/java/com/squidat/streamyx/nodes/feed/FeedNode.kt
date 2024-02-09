@@ -14,15 +14,33 @@ import com.bumble.appyx.navigation.collections.ImmutableList
 import com.bumble.appyx.navigation.modality.NodeContext
 import com.bumble.appyx.navigation.node.LeafNode
 import com.squidat.streamyx.components.VideoPreview
+import com.squidat.streamyx.data.Videos
 import com.squidat.streamyx.models.Video
-import com.squidat.streamyx.models.Videos
 import com.squidat.streamyx.ui.theme.StreamyxTheme
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.launch
 
 class FeedNode(nodeContext: NodeContext) : LeafNode(nodeContext) {
 
+    private val _output: MutableSharedFlow<Output> = MutableSharedFlow()
+    val output: Flow<Output> = _output
+
+    sealed interface Output {
+        data class VideoSelected(val video: Video) : Output
+    }
+
     @Composable
     override fun Content(modifier: Modifier) {
-        Feed(modifier = modifier, videos = Videos)
+        Feed(
+            modifier = modifier,
+            videos = Videos,
+            onVideoSelected = {
+                lifecycleScope.launch {
+                    _output.emit(Output.VideoSelected(it))
+                }
+            },
+        )
     }
 }
 
@@ -30,6 +48,7 @@ class FeedNode(nodeContext: NodeContext) : LeafNode(nodeContext) {
 private fun Feed(
     modifier: Modifier = Modifier,
     videos: ImmutableList<Video>,
+    onVideoSelected: (Video) -> Unit,
 ) {
     Surface(modifier = modifier) {
         LazyColumn(modifier = Modifier.fillMaxSize()) {
@@ -39,7 +58,9 @@ private fun Feed(
                     channelName = video.postedBy.name,
                     views = video.views,
                     postedAt = video.postedAt,
-                    onClick = {},
+                    onClick = {
+                        onVideoSelected(video)
+                    },
                 )
                 Spacer(Modifier.size(12.dp))
             }
@@ -54,6 +75,7 @@ private fun FeedPreview() {
         Feed(
             modifier = Modifier.fillMaxSize(),
             videos = Videos,
+            onVideoSelected = {},
         )
     }
 }
