@@ -25,7 +25,6 @@ import androidx.compose.ui.unit.dp
 import com.bumble.appyx.navigation.modality.NodeContext
 import com.bumble.appyx.navigation.node.LeafNode
 import com.squidat.streamyx.nodes.bottom_navigation.BottomNavigationNode.Tab
-import com.squidat.streamyx.ui.theme.Bee
 import com.squidat.streamyx.ui.theme.StreamyxTheme
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -74,7 +73,7 @@ private fun StreamyxBottomNavigationBar(
     BottomAppBar(modifier = modifier) {
         BottomNavigationItem(
             selected = selectedTab == Tab.Home,
-            selectedContentColor = Bee,
+            selectedContentColor = MaterialTheme.colorScheme.primary,
             unselectedContentColor = Color.DarkGray,
             onClick = {
                 selectedTab = Tab.Home
@@ -93,7 +92,7 @@ private fun StreamyxBottomNavigationBar(
         )
         BottomNavigationItem(
             selected = selectedTab == Tab.Inbox,
-            selectedContentColor = Bee,
+            selectedContentColor = MaterialTheme.colorScheme.primary,
             unselectedContentColor = Color.DarkGray,
             onClick = {
                 selectedTab = Tab.Inbox
@@ -112,7 +111,7 @@ private fun StreamyxBottomNavigationBar(
         )
         BottomNavigationItem(
             selected = selectedTab == Tab.Favorites,
-            selectedContentColor = Bee,
+            selectedContentColor = MaterialTheme.colorScheme.primary,
             unselectedContentColor = Color.DarkGray,
             onClick = {
                 selectedTab = Tab.Favorites
@@ -131,7 +130,7 @@ private fun StreamyxBottomNavigationBar(
         )
         BottomNavigationItem(
             selected = selectedTab == Tab.You,
-            selectedContentColor = Bee,
+            selectedContentColor = MaterialTheme.colorScheme.primary,
             unselectedContentColor = Color.DarkGray,
             onClick = {
                 selectedTab = Tab.You

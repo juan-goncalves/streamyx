@@ -12,6 +12,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ThumbUp
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -29,8 +31,10 @@ import com.squidat.streamyx.data.toRelativeTime
 import com.squidat.streamyx.data.toViewCount
 import com.squidat.streamyx.models.Comment
 import com.squidat.streamyx.models.User
-import com.squidat.streamyx.ui.theme.Bee
+import com.squidat.streamyx.ui.theme.LightAmber
 import com.squidat.streamyx.ui.theme.StreamyxTheme
+import com.squidat.streamyx.ui.theme.VeryLightAmber
+import com.squidat.streamyx.ui.theme.VeryLightGrey
 import java.time.LocalDateTime
 
 @Composable
@@ -58,7 +62,10 @@ fun Comment(
     val likeAmount = remember(likes) { likes.toViewCount() }
     val relativePostingTime = remember(postedAt) { postedAt.elapsedHours.toRelativeTime() }
 
-    Card(modifier = modifier) {
+    Card(
+        modifier = modifier,
+        colors = CardDefaults.cardColors(containerColor = VeryLightGrey),
+    ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -68,7 +75,7 @@ fun Comment(
                 modifier = Modifier
                     .size(42.dp)
                     .clip(CircleShape)
-                    .background(Bee),
+                    .background(MaterialTheme.colorScheme.primary),
             )
 
             Spacer(Modifier.size(8.dp))

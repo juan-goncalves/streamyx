@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.dp
 import com.squidat.streamyx.data.elapsedHours
 import com.squidat.streamyx.data.toRelativeTime
 import com.squidat.streamyx.data.toViewCount
-import com.squidat.streamyx.ui.theme.Bee
 import com.squidat.streamyx.ui.theme.StreamyxTheme
 import java.time.LocalDateTime
 
@@ -47,7 +46,7 @@ fun VideoDetails(
             modifier = Modifier
                 .size(36.dp)
                 .clip(CircleShape)
-                .background(Bee),
+                .background(MaterialTheme.colorScheme.primary),
         )
         Spacer(Modifier.size(4.dp))
         Column {

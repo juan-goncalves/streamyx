@@ -13,6 +13,7 @@ import com.squidat.streamyx.nodes.video_player.VideoPlayerNode
 
 class RootNode(
     nodeContext: NodeContext,
+    // TODO: Either implement a new component or a new visualisation for the small player animation here
     private val backstack: BackStack<RootNavigation> = nodeContext.buildBackstack(),
 ) : Node<RootNavigation>(
     nodeContext = nodeContext,
