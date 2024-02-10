@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
+    id("com.google.devtools.ksp") version "1.9.21-1.0.15"
 }
 
 android {
@@ -62,8 +63,11 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material:material-icons-extended")
     implementation("com.bumble.appyx:appyx-navigation:2.0.0-alpha10")
+    implementation("com.bumble.appyx:appyx-interactions-android:2.0.0-alpha10")
     implementation("com.bumble.appyx:backstack-android:2.0.0-alpha10")
     implementation("com.bumble.appyx:spotlight-android:2.0.0-alpha10")
+
+    ksp("com.bumble.appyx:appyx-processor:2.0.0-alpha10")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

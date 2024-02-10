@@ -2,19 +2,18 @@ package com.squidat.streamyx.nodes.root
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.bumble.appyx.components.backstack.BackStack
-import com.bumble.appyx.components.backstack.BackStackModel
-import com.bumble.appyx.components.backstack.ui.fader.BackStackFader
 import com.bumble.appyx.navigation.composable.AppyxNavigationContainer
 import com.bumble.appyx.navigation.modality.NodeContext
 import com.bumble.appyx.navigation.node.Node
+import com.squidat.streamyx.mininimize_component.DefaultVisualisation
+import com.squidat.streamyx.mininimize_component.MinimizableBackstack
+import com.squidat.streamyx.mininimize_component.MinimizableBackstackModel
 import com.squidat.streamyx.nodes.main.MainNode
 import com.squidat.streamyx.nodes.video_player.VideoPlayerNode
 
 class RootNode(
     nodeContext: NodeContext,
-    // TODO: Either implement a new component or a new visualisation for the small player animation here
-    private val backstack: BackStack<RootNavigation> = nodeContext.buildBackstack(),
+    private val backstack: MinimizableBackstack<RootNavigation> = nodeContext.buildBackstack(),
 ) : Node<RootNavigation>(
     nodeContext = nodeContext,
     appyxComponent = backstack,
@@ -34,12 +33,12 @@ class RootNode(
     }
 }
 
-private fun NodeContext.buildBackstack(): BackStack<RootNavigation> {
-    return BackStack(
-        model = BackStackModel(
-            initialTarget = RootNavigation.Main,
+private fun NodeContext.buildBackstack(): MinimizableBackstack<RootNavigation> {
+    return MinimizableBackstack(
+        model = MinimizableBackstackModel(
+            defaultItem = RootNavigation.Main,
             savedStateMap = savedStateMap,
         ),
-        visualisation = { BackStackFader(it) }
+        visualisation = { DefaultVisualisation(it) }
     )
 }
