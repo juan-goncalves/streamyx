@@ -56,7 +56,7 @@ private fun Feed(
     onVideoSelected: (Video) -> Unit,
 ) {
     Surface(modifier = modifier) {
-        LazyColumn(modifier = Modifier.fillMaxSize()) {
+        LazyColumn(modifier = Modifier.fillMaxWidth()) {
             items(videos) { video ->
                 VideoPreview(
                     videoTitle = video.title,

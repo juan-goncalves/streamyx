@@ -3,13 +3,23 @@ package com.squidat.streamyx.mininimize_component
 import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.animation.core.SpringSpec
 import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
+import androidx.compose.ui.unit.DpOffset
+import androidx.compose.ui.unit.dp
 import com.bumble.appyx.interactions.core.model.BaseAppyxComponent
 import com.bumble.appyx.interactions.core.model.backpresshandlerstrategies.BackPressHandlerStrategy
 import com.bumble.appyx.interactions.core.ui.DefaultAnimationSpec
 import com.bumble.appyx.interactions.core.ui.Visualisation
 import com.bumble.appyx.interactions.core.ui.context.UiContext
-import com.bumble.appyx.interactions.core.ui.property.impl.Scale
+import com.bumble.appyx.interactions.core.ui.property.impl.Alpha
+import com.bumble.appyx.interactions.core.ui.property.impl.Height
+import com.bumble.appyx.interactions.core.ui.property.impl.RoundedCorners
+import com.bumble.appyx.interactions.core.ui.property.impl.Width
 import com.bumble.appyx.interactions.core.ui.property.impl.ZIndex
+import com.bumble.appyx.interactions.core.ui.property.impl.position.BiasAlignment
+import com.bumble.appyx.interactions.core.ui.property.impl.position.BiasAlignment.OutsideAlignment.Companion.OutsideTop
+import com.bumble.appyx.interactions.core.ui.property.impl.position.PositionAlignment
+import com.bumble.appyx.interactions.core.ui.property.impl.position.PositionOffset
 import com.bumble.appyx.interactions.core.ui.state.MatchedTargetUiState
 import com.bumble.appyx.transitionmodel.BaseVisualisation
 import com.squidat.streamyx.mininimize_component.backpresshandler.MinimizeOnBackPressStrategy
@@ -21,7 +31,7 @@ class MinimizableBackstack<InteractionTarget : Any>(
     scope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main),
     model: MinimizableBackstackModel<InteractionTarget>,
     visualisation: (UiContext) -> Visualisation<InteractionTarget, MinimizableBackstackModel.State<InteractionTarget>>,
-    progressAnimationSpec: AnimationSpec<Float> = spring(),
+    progressAnimationSpec: AnimationSpec<Float> = tween(durationMillis = 1_000),
     backPressStrategy: BackPressHandlerStrategy<InteractionTarget, MinimizableBackstackModel.State<InteractionTarget>> = MinimizeOnBackPressStrategy(
         scope
     ),
@@ -44,18 +54,33 @@ class DefaultVisualisation<InteractionTarget : Any>(
 ) {
 
     private val minimized = TargetUiState(
-        verticalScale = Scale.Target(0.3f),
-        zIndex = ZIndex.Target(2f)
+        height = Height.Target(0.1f),
+        width = Width.Target(0.97f),
+        alpha = Alpha.Target(1f),
+        roundedCorners = RoundedCorners.Target(12),
+        alignment = PositionAlignment.Target(
+            insideAlignment = BiasAlignment.InsideAlignment.fractionAlignment(
+                horizontalBiasFraction = 0.5f,
+                verticalBiasFraction = 0.88f,
+            )
+        ),
+        zIndex = ZIndex.Target(2f),
     )
 
-    private val maximised = TargetUiState(
-        verticalScale = Scale.Target(1f),
-        zIndex = ZIndex.Target(1f)
+    private val active = TargetUiState(
+        height = Height.Target(1f),
+        width = Width.Target(1f),
+        alpha = Alpha.Target(1f),
+        roundedCorners = RoundedCorners.Target(0),
+        zIndex = ZIndex.Target(1f),
     )
 
     private val hidden = TargetUiState(
-        verticalScale = Scale.Target(0f),
-        zIndex = ZIndex.Target(0f),
+        height = Height.Target(1f),
+        width = Width.Target(1f),
+        alpha = Alpha.Target(0f),
+        roundedCorners = RoundedCorners.Target(0),
+        zIndex = ZIndex.Target(1f),
     )
 
     override fun MinimizableBackstackModel.State<InteractionTarget>.toUiTargets(): List<MatchedTargetUiState<InteractionTarget, TargetUiState>> =
@@ -66,7 +91,7 @@ class DefaultVisualisation<InteractionTarget : Any>(
         )
 
     private fun MinimizableBackstackModel.State<InteractionTarget>.matchMaximizedTargetUiState(): MatchedTargetUiState<InteractionTarget, TargetUiState> {
-        return MatchedTargetUiState(element = activeItem, targetUiState = maximised)
+        return MatchedTargetUiState(element = activeItem, targetUiState = active)
     }
 
     private fun MinimizableBackstackModel.State<InteractionTarget>.matchMinimizedTargetUiState(): MatchedTargetUiState<InteractionTarget, TargetUiState>? {

@@ -48,7 +48,7 @@ fun VideoPlayerScreen(
     video: Video,
 ) {
     Surface(modifier = modifier) {
-        Column(modifier = Modifier.fillMaxSize()) {
+        Column(modifier = Modifier.fillMaxWidth()) {
             VideoPlayer(modifier = Modifier.weight(0.5f))
             VideoDetails(
                 modifier = Modifier
