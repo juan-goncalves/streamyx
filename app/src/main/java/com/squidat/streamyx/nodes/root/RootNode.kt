@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import com.bumble.appyx.navigation.composable.AppyxNavigationContainer
 import com.bumble.appyx.navigation.modality.NodeContext
 import com.bumble.appyx.navigation.node.Node
+import com.squidat.streamyx.mininimize_component.DefaultGesture
 import com.squidat.streamyx.mininimize_component.DefaultVisualisation
 import com.squidat.streamyx.mininimize_component.MinimizableBackstack
 import com.squidat.streamyx.mininimize_component.MinimizableBackstackModel
@@ -39,6 +40,5 @@ private fun NodeContext.buildBackstack(): MinimizableBackstack<RootNavigation> {
             defaultItem = RootNavigation.Main,
             savedStateMap = savedStateMap,
         ),
-        visualisation = { DefaultVisualisation(it) }
     )
 }

@@ -109,7 +109,7 @@ fun LargeVideoPlayer(
             LazyColumn(
                 modifier = Modifier
                     .weight(1f)
-                    .fillMaxWidth()
+                    .fillMaxSize()
                     .padding(12.dp),
             ) {
                 items(video.comments) { comment ->
@@ -205,7 +205,7 @@ fun ResponsiveVideoPlayer(
     Surface(
         modifier = modifier.onSizeChanged { sizePx = it },
     ) {
-        if (height > 300.dp) {
+        if (height > 100.dp) {
             LargeVideoPlayer(modifier = Modifier.fillMaxSize(), video = video)
         } else {
             SmallVideoPlayer(
@@ -216,7 +216,6 @@ fun ResponsiveVideoPlayer(
         }
     }
 }
-
 
 @Preview
 @Composable
