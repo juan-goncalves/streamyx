@@ -3,6 +3,7 @@ package com.squidat.streamyx.nodes.root
 import com.bumble.appyx.navigation.clienthelper.interactor.Interactor
 import com.bumble.appyx.navigation.lifecycle.Lifecycle
 import com.squidat.streamyx.mininimize_component.MinimizableBackstack
+import com.squidat.streamyx.mininimize_component.operation.dismiss
 import com.squidat.streamyx.mininimize_component.operation.maximize
 import com.squidat.streamyx.mininimize_component.operation.push
 import com.squidat.streamyx.nodes.main.MainNode
@@ -42,6 +43,7 @@ class RootInteractor(
             output.collectLatest { output ->
                 when (output) {
                     is VideoPlayerNode.Output.MaximizeSelected -> backstack.maximize()
+                    is VideoPlayerNode.Output.DismissSelected -> backstack.dismiss()
                 }
             }
         }

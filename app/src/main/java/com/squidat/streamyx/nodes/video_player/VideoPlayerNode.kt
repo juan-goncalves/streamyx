@@ -67,16 +67,22 @@ class VideoPlayerNode(
 
     sealed interface Output {
         data object MaximizeSelected : Output
+        data object DismissSelected : Output
     }
 
     @Composable
     override fun Content(modifier: Modifier) {
-        LargeVideoPlayerV2(
+        ResponsiveVideoPlayer(
             modifier = modifier,
             video = video,
             onMaximizeSelected = {
                 lifecycleScope.launch {
                     _output.emit(Output.MaximizeSelected)
+                }
+            },
+            onDismissSelected = {
+                lifecycleScope.launch {
+                    _output.emit(Output.DismissSelected)
                 }
             }
         )
@@ -84,10 +90,11 @@ class VideoPlayerNode(
 }
 
 @Composable
-fun LargeVideoPlayerV2(
+fun ResponsiveVideoPlayer(
     modifier: Modifier,
     video: Video,
     onMaximizeSelected: () -> Unit,
+    onDismissSelected: () -> Unit,
 ) {
     var sizePx by remember { mutableStateOf(IntSize.Zero) }
     val density = LocalDensity.current
@@ -129,6 +136,7 @@ fun LargeVideoPlayerV2(
                     modifier = Modifier.alpha(smallVideoPlayerAlpha),
                     video = video,
                     onMaximizeSelected = onMaximizeSelected,
+                    onDismissSelected = onDismissSelected,
                 )
             }
             LargeVideoDetails(
@@ -185,6 +193,7 @@ private fun SmallVideoDetails(
     modifier: Modifier,
     video: Video,
     onMaximizeSelected: () -> Unit,
+    onDismissSelected: () -> Unit,
 ) {
     Row(
         modifier = modifier
@@ -227,7 +236,7 @@ private fun SmallVideoDetails(
                 }
             )
             IconButton(
-                onClick = {},
+                onClick = onDismissSelected,
                 content = {
                     Icon(
                         modifier = Modifier.size(24.dp),
@@ -243,26 +252,28 @@ private fun SmallVideoDetails(
 
 @Preview
 @Composable
-fun VideoPlayerScreenPreview() {
+fun LargeVideoPlayerPreview() {
     StreamyxTheme {
-        LargeVideoPlayerV2(
+        ResponsiveVideoPlayer(
             modifier = Modifier.fillMaxSize(),
             video = Videos.first(),
             onMaximizeSelected = {},
+            onDismissSelected = {},
         )
     }
 }
 
 @Preview
 @Composable
-fun SmallVideoPlayerScreenPreview() {
+fun SmallVideoPlayerPreview() {
     StreamyxTheme {
-        SmallVideoDetails(
+        ResponsiveVideoPlayer(
             modifier = Modifier
-                .fillMaxWidth(fraction = 0.90f)
-                .height(80.dp),
+                .fillMaxWidth()
+                .height(100.dp),
             video = Videos.first(),
             onMaximizeSelected = {},
+            onDismissSelected = {},
         )
     }
 }
