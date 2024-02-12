@@ -1,4 +1,4 @@
-package com.squidat.streamyx.ui.theme
+package com.squidat.streamyx.ui
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

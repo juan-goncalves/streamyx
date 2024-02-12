@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import com.bumble.appyx.navigation.modality.NodeContext
 import com.bumble.appyx.navigation.node.LeafNode
 import com.squidat.streamyx.nodes.bottom_navigation.BottomNavigationNode.Tab
-import com.squidat.streamyx.ui.theme.StreamyxTheme
+import com.squidat.streamyx.ui.StreamyxTheme
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch

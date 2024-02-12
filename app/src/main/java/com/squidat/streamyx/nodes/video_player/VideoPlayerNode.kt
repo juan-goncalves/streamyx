@@ -45,12 +45,12 @@ import com.bumble.appyx.interactions.core.ui.math.clamp
 import com.bumble.appyx.interactions.core.ui.math.lerpFloat
 import com.bumble.appyx.navigation.modality.NodeContext
 import com.bumble.appyx.navigation.node.LeafNode
-import com.squidat.streamyx.components.Comment
-import com.squidat.streamyx.components.VideoDetails
-import com.squidat.streamyx.components.VideoPlayer
 import com.squidat.streamyx.data.Videos
 import com.squidat.streamyx.models.Video
-import com.squidat.streamyx.ui.theme.StreamyxTheme
+import com.squidat.streamyx.nodes.video_player.ui.Comment
+import com.squidat.streamyx.nodes.video_player.ui.VideoDetails
+import com.squidat.streamyx.nodes.video_player.ui.VideoPlayer
+import com.squidat.streamyx.ui.StreamyxTheme
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
@@ -160,7 +160,7 @@ private fun LargeVideoDetails(
                 .fillMaxWidth()
                 .padding(12.dp),
             videoTitle = video.title,
-            channelName = video.postedBy.name,
+            channelName = video.author.name,
             views = video.views,
             postedAt = video.postedAt,
         )
@@ -214,7 +214,7 @@ private fun SmallVideoDetails(
             )
             Spacer(Modifier.size(2.dp))
             Text(
-                text = video.postedBy.name,
+                text = video.author.name,
                 style = MaterialTheme.typography.body2,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,

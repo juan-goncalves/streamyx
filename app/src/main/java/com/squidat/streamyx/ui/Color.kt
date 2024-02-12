@@ -1,4 +1,4 @@
-package com.squidat.streamyx.ui.theme
+package com.squidat.streamyx.ui
 
 import androidx.compose.ui.graphics.Color
 

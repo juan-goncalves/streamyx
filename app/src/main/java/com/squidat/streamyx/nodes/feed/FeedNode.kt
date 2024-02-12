@@ -14,10 +14,10 @@ import androidx.compose.ui.unit.dp
 import com.bumble.appyx.navigation.collections.ImmutableList
 import com.bumble.appyx.navigation.modality.NodeContext
 import com.bumble.appyx.navigation.node.LeafNode
-import com.squidat.streamyx.components.VideoPreview
 import com.squidat.streamyx.data.Videos
 import com.squidat.streamyx.models.Video
-import com.squidat.streamyx.ui.theme.StreamyxTheme
+import com.squidat.streamyx.nodes.feed.ui.VideoPreview
+import com.squidat.streamyx.ui.StreamyxTheme
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
@@ -56,7 +56,7 @@ private fun Feed(
             items(videos) { video ->
                 VideoPreview(
                     videoTitle = video.title,
-                    channelName = video.postedBy.name,
+                    channelName = video.author.name,
                     views = video.views,
                     postedAt = video.postedAt,
                     onClick = {

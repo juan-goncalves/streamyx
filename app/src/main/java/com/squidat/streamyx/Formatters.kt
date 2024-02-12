@@ -1,4 +1,4 @@
-package com.squidat.streamyx.data
+package com.squidat.streamyx
 
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
@@ -16,7 +16,7 @@ fun Long.toViewCount(): String {
 
 fun Long.toRelativeTime(): String = when {
     this < 24 -> "${this}h ago"
-    this < 168 -> "${this / 24} day(s) ago" // Less than 7 days
-    this < 720 -> "${this / 168} week(s) ago" // Less than 30 days
-    else -> "${this / 720} month(s) ago" // More than 30 days
+    this < 168 -> "${this / 24} day(s) ago"
+    this < 720 -> "${this / 168} week(s) ago"
+    else -> "${this / 720} month(s) ago"
 }

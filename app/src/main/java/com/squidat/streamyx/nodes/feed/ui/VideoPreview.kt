@@ -1,4 +1,4 @@
-package com.squidat.streamyx.components
+package com.squidat.streamyx.nodes.feed.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -12,7 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.squidat.streamyx.ui.theme.StreamyxTheme
+import com.squidat.streamyx.nodes.video_player.ui.VideoDetails
+import com.squidat.streamyx.ui.StreamyxTheme
 import java.time.LocalDateTime
 
 @Composable

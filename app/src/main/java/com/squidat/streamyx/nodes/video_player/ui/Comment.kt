@@ -1,4 +1,4 @@
-package com.squidat.streamyx.components
+package com.squidat.streamyx.nodes.video_player.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -25,13 +25,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.squidat.streamyx.data.Users
-import com.squidat.streamyx.data.elapsedHours
-import com.squidat.streamyx.data.toRelativeTime
-import com.squidat.streamyx.data.toViewCount
+import com.squidat.streamyx.elapsedHours
 import com.squidat.streamyx.models.Comment
 import com.squidat.streamyx.models.User
-import com.squidat.streamyx.ui.theme.StreamyxTheme
-import com.squidat.streamyx.ui.theme.VeryLightGrey
+import com.squidat.streamyx.toRelativeTime
+import com.squidat.streamyx.toViewCount
+import com.squidat.streamyx.ui.StreamyxTheme
+import com.squidat.streamyx.ui.VeryLightGrey
 import java.time.LocalDateTime
 
 @Composable

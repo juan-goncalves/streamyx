@@ -16,11 +16,11 @@ import com.bumble.appyx.navigation.composable.PermanentChild
 import com.bumble.appyx.navigation.modality.NodeContext
 import com.bumble.appyx.navigation.node.Node
 import com.bumble.appyx.navigation.node.node
-import com.squidat.streamyx.components.StreamyxToolbar
 import com.squidat.streamyx.models.Video
 import com.squidat.streamyx.nodes.bottom_navigation.BottomNavigationNode
 import com.squidat.streamyx.nodes.bottom_navigation.BottomNavigationNode.Tab
 import com.squidat.streamyx.nodes.feed.FeedNode
+import com.squidat.streamyx.nodes.main.ui.StreamyxToolbar
 import kotlinx.coroutines.flow.MutableSharedFlow
 
 class MainNode(
