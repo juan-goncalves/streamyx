@@ -2,19 +2,15 @@ package com.squidat.streamyx.mininimize_component
 
 import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.animation.core.SpringSpec
-import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.unit.Density
-import androidx.compose.ui.unit.DpOffset
-import androidx.compose.ui.unit.dp
 import com.bumble.appyx.interactions.core.model.BaseAppyxComponent
 import com.bumble.appyx.interactions.core.model.backpresshandlerstrategies.BackPressHandlerStrategy
 import com.bumble.appyx.interactions.core.ui.DefaultAnimationSpec
 import com.bumble.appyx.interactions.core.ui.Visualisation
 import com.bumble.appyx.interactions.core.ui.context.TransitionBounds
 import com.bumble.appyx.interactions.core.ui.context.UiContext
-import com.bumble.appyx.interactions.core.ui.gesture.Drag
 import com.bumble.appyx.interactions.core.ui.gesture.Drag.Direction8.DOWN
 import com.bumble.appyx.interactions.core.ui.gesture.Drag.Direction8.UP
 import com.bumble.appyx.interactions.core.ui.gesture.Gesture
@@ -27,9 +23,7 @@ import com.bumble.appyx.interactions.core.ui.property.impl.RoundedCorners
 import com.bumble.appyx.interactions.core.ui.property.impl.Width
 import com.bumble.appyx.interactions.core.ui.property.impl.ZIndex
 import com.bumble.appyx.interactions.core.ui.property.impl.position.BiasAlignment
-import com.bumble.appyx.interactions.core.ui.property.impl.position.BiasAlignment.OutsideAlignment.Companion.OutsideTop
 import com.bumble.appyx.interactions.core.ui.property.impl.position.PositionAlignment
-import com.bumble.appyx.interactions.core.ui.property.impl.position.PositionOffset
 import com.bumble.appyx.interactions.core.ui.state.MatchedTargetUiState
 import com.bumble.appyx.transitionmodel.BaseVisualisation
 import com.squidat.streamyx.mininimize_component.MinimizableBackstackModel.State

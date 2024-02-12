@@ -21,7 +21,6 @@ import com.squidat.streamyx.models.Video
 import com.squidat.streamyx.nodes.bottom_navigation.BottomNavigationNode
 import com.squidat.streamyx.nodes.bottom_navigation.BottomNavigationNode.Tab
 import com.squidat.streamyx.nodes.feed.FeedNode
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 
 class MainNode(
