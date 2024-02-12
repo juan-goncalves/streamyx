@@ -1,4 +1,4 @@
-package com.squidat.streamyx.mininimize_component
+package com.squidat.streamyx.minimizable_backstack
 
 import com.bumble.appyx.interactions.core.ui.property.impl.Alpha
 import com.bumble.appyx.interactions.core.ui.property.impl.Height

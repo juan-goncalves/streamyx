@@ -2,10 +2,10 @@ package com.squidat.streamyx.nodes.root
 
 import com.bumble.appyx.navigation.clienthelper.interactor.Interactor
 import com.bumble.appyx.navigation.lifecycle.Lifecycle
-import com.squidat.streamyx.mininimize_component.MinimizableBackstack
-import com.squidat.streamyx.mininimize_component.operation.dismiss
-import com.squidat.streamyx.mininimize_component.operation.maximize
-import com.squidat.streamyx.mininimize_component.operation.push
+import com.squidat.streamyx.minimizable_backstack.MinimizableBackstack
+import com.squidat.streamyx.minimizable_backstack.operation.dismiss
+import com.squidat.streamyx.minimizable_backstack.operation.maximize
+import com.squidat.streamyx.minimizable_backstack.operation.push
 import com.squidat.streamyx.nodes.main.MainNode
 import com.squidat.streamyx.nodes.video_player.VideoPlayerNode
 import kotlinx.coroutines.flow.collectLatest

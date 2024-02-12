@@ -1,11 +1,11 @@
-package com.squidat.streamyx.mininimize_component.backpresshandler
+package com.squidat.streamyx.minimizable_backstack.backpresshandler
 
 import androidx.compose.animation.core.AnimationSpec
 import com.bumble.appyx.interactions.core.model.backpresshandlerstrategies.BaseBackPressHandlerStrategy
 import com.bumble.appyx.mapState
-import com.squidat.streamyx.mininimize_component.MinimizableBackstackModel
-import com.squidat.streamyx.mininimize_component.operation.Minimize
-import com.squidat.streamyx.mininimize_component.operation.Pop
+import com.squidat.streamyx.minimizable_backstack.MinimizableBackstackModel
+import com.squidat.streamyx.minimizable_backstack.operation.Minimize
+import com.squidat.streamyx.minimizable_backstack.operation.Pop
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.StateFlow
 

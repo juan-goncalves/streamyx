@@ -1,4 +1,4 @@
-package com.squidat.streamyx.mininimize_component
+package com.squidat.streamyx.minimizable_backstack
 
 import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.animation.core.SpringSpec
@@ -26,10 +26,10 @@ import com.bumble.appyx.interactions.core.ui.property.impl.position.BiasAlignmen
 import com.bumble.appyx.interactions.core.ui.property.impl.position.PositionAlignment
 import com.bumble.appyx.interactions.core.ui.state.MatchedTargetUiState
 import com.bumble.appyx.transitionmodel.BaseVisualisation
-import com.squidat.streamyx.mininimize_component.MinimizableBackstackModel.State
-import com.squidat.streamyx.mininimize_component.backpresshandler.MinimizeOnBackPressStrategy
-import com.squidat.streamyx.mininimize_component.operation.Maximize
-import com.squidat.streamyx.mininimize_component.operation.Minimize
+import com.squidat.streamyx.minimizable_backstack.MinimizableBackstackModel.State
+import com.squidat.streamyx.minimizable_backstack.backpresshandler.MinimizeOnBackPressStrategy
+import com.squidat.streamyx.minimizable_backstack.operation.Maximize
+import com.squidat.streamyx.minimizable_backstack.operation.Minimize
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob

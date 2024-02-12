@@ -5,8 +5,8 @@ import androidx.compose.ui.Modifier
 import com.bumble.appyx.navigation.composable.AppyxNavigationContainer
 import com.bumble.appyx.navigation.modality.NodeContext
 import com.bumble.appyx.navigation.node.Node
-import com.squidat.streamyx.mininimize_component.MinimizableBackstack
-import com.squidat.streamyx.mininimize_component.MinimizableBackstackModel
+import com.squidat.streamyx.minimizable_backstack.MinimizableBackstack
+import com.squidat.streamyx.minimizable_backstack.MinimizableBackstackModel
 import com.squidat.streamyx.nodes.main.MainNode
 import com.squidat.streamyx.nodes.video_player.VideoPlayerNode
 
