@@ -5,18 +5,20 @@ import androidx.compose.ui.Modifier
 import com.bumble.appyx.navigation.composable.AppyxNavigationContainer
 import com.bumble.appyx.navigation.modality.NodeContext
 import com.bumble.appyx.navigation.node.Node
-import com.squidat.streamyx.minimizable_backstack.MinimizableBackstack
-import com.squidat.streamyx.minimizable_backstack.MinimizableBackstackModel
 import com.squidat.streamyx.nodes.main.MainNode
 import com.squidat.streamyx.nodes.video_player.VideoPlayerNode
+import com.squidat.streamyx.picture_in_picture.PictureInPicture
+import com.squidat.streamyx.picture_in_picture.PictureInPictureModel
+import com.squidat.streamyx.picture_in_picture.gesture.DragOverlayGesture
+import com.squidat.streamyx.picture_in_picture.ui.floating_visualization.FloatingVisualization
 
 class RootNode(
     nodeContext: NodeContext,
-    private val backstack: MinimizableBackstack<RootNavigation> = nodeContext.buildBackstack(),
+    private val pip: PictureInPicture<RootNavigation> = nodeContext.buildPictureInPicture(),
 ) : Node<RootNavigation>(
     nodeContext = nodeContext,
-    appyxComponent = backstack,
-    plugins = listOf(RootInteractor(backstack)),
+    appyxComponent = pip,
+    plugins = listOf(RootInteractor(pip)),
 ) {
 
     override fun buildChildNode(navTarget: RootNavigation, nodeContext: NodeContext): Node<*> {
@@ -28,15 +30,17 @@ class RootNode(
 
     @Composable
     override fun Content(modifier: Modifier) {
-        AppyxNavigationContainer(modifier = modifier, appyxComponent = backstack)
+        AppyxNavigationContainer(modifier = modifier, appyxComponent = pip)
     }
 }
 
-private fun NodeContext.buildBackstack(): MinimizableBackstack<RootNavigation> {
-    return MinimizableBackstack(
-        model = MinimizableBackstackModel(
+private fun NodeContext.buildPictureInPicture(): PictureInPicture<RootNavigation> {
+    return PictureInPicture(
+        model = PictureInPictureModel(
             defaultItem = RootNavigation.Main,
             savedStateMap = savedStateMap,
         ),
+        visualisation = { FloatingVisualization(it) },
+        gestureFactory = { DragOverlayGesture(it) },
     )
 }

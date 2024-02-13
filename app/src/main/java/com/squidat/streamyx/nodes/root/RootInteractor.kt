@@ -2,17 +2,16 @@ package com.squidat.streamyx.nodes.root
 
 import com.bumble.appyx.navigation.clienthelper.interactor.Interactor
 import com.bumble.appyx.navigation.lifecycle.Lifecycle
-import com.squidat.streamyx.minimizable_backstack.MinimizableBackstack
-import com.squidat.streamyx.minimizable_backstack.operation.dismiss
-import com.squidat.streamyx.minimizable_backstack.operation.maximize
-import com.squidat.streamyx.minimizable_backstack.operation.push
 import com.squidat.streamyx.nodes.main.MainNode
 import com.squidat.streamyx.nodes.video_player.VideoPlayerNode
+import com.squidat.streamyx.picture_in_picture.PictureInPicture
+import com.squidat.streamyx.picture_in_picture.operation.dismiss
+import com.squidat.streamyx.picture_in_picture.operation.open
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class RootInteractor(
-    private val backstack: MinimizableBackstack<RootNavigation>,
+    private val pip: PictureInPicture<RootNavigation>,
 ) : Interactor<RootNode>() {
 
 
@@ -31,7 +30,7 @@ class RootInteractor(
             output.collectLatest { output ->
                 when (output) {
                     is MainNode.Output.VideoSelected -> {
-                        backstack.push(RootNavigation.VideoPlayer(output.video))
+                        pip.open(RootNavigation.VideoPlayer(output.video))
                     }
                 }
             }
@@ -42,8 +41,13 @@ class RootInteractor(
         lifecycle.coroutineScope.launch {
             output.collectLatest { output ->
                 when (output) {
-                    is VideoPlayerNode.Output.MaximizeSelected -> backstack.maximize()
-                    is VideoPlayerNode.Output.DismissSelected -> backstack.dismiss()
+                    is VideoPlayerNode.Output.MaximizeSelected -> pip.open(
+                        RootNavigation.VideoPlayer(
+                            output.video
+                        )
+                    )
+
+                    is VideoPlayerNode.Output.DismissSelected -> pip.dismiss()
                 }
             }
         }

@@ -66,7 +66,7 @@ class VideoPlayerNode(
     val output: Flow<Output> = _output
 
     sealed interface Output {
-        data object MaximizeSelected : Output
+        data class MaximizeSelected(val video: Video) : Output
         data object DismissSelected : Output
     }
 
@@ -77,7 +77,7 @@ class VideoPlayerNode(
             video = video,
             onMaximizeSelected = {
                 lifecycleScope.launch {
-                    _output.emit(Output.MaximizeSelected)
+                    _output.emit(Output.MaximizeSelected(video))
                 }
             },
             onDismissSelected = {
