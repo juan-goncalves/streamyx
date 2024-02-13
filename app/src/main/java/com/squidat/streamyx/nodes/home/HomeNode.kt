@@ -1,4 +1,4 @@
-package com.squidat.streamyx.nodes.main
+package com.squidat.streamyx.nodes.home
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,17 +15,21 @@ import com.bumble.appyx.navigation.node.Node
 import com.bumble.appyx.navigation.node.node
 import com.squidat.streamyx.models.Video
 import com.squidat.streamyx.nodes.feed.FeedNode
-import com.squidat.streamyx.nodes.main.ui.StreamyxBottomNavigationBar
-import com.squidat.streamyx.nodes.main.ui.StreamyxToolbar
+import com.squidat.streamyx.nodes.home.HomeNavigation.Favorites
+import com.squidat.streamyx.nodes.home.HomeNavigation.Feed
+import com.squidat.streamyx.nodes.home.HomeNavigation.Inbox
+import com.squidat.streamyx.nodes.home.HomeNavigation.You
+import com.squidat.streamyx.nodes.home.ui.StreamyxBottomNavigationBar
+import com.squidat.streamyx.nodes.home.ui.StreamyxToolbar
 import kotlinx.coroutines.flow.MutableSharedFlow
 
 class MainNode(
     nodeContext: NodeContext,
-    private val spotlight: Spotlight<MainNavigation> = nodeContext.buildSpotlight(),
-) : Node<MainNavigation>(
+    private val spotlight: Spotlight<HomeNavigation> = nodeContext.buildSpotlight(),
+) : Node<HomeNavigation>(
     nodeContext = nodeContext,
     appyxComponent = spotlight,
-    plugins = listOf(MainInteractor())
+    plugins = listOf(HomeInteractor())
 ) {
 
     val output: MutableSharedFlow<Output> = MutableSharedFlow()
@@ -34,21 +38,12 @@ class MainNode(
         data class VideoSelected(val video: Video) : Output
     }
 
-    override fun buildChildNode(navTarget: MainNavigation, nodeContext: NodeContext): Node<*> {
+    override fun buildChildNode(navTarget: HomeNavigation, nodeContext: NodeContext): Node<*> {
         return when (navTarget) {
-            MainNavigation.Feed -> FeedNode(nodeContext)
-
-            MainNavigation.Inbox -> node(nodeContext) {
-                Text(text = "Inbox!")
-            }
-
-            MainNavigation.Favorites -> node(nodeContext) {
-                Text(text = "Favorites!")
-            }
-
-            MainNavigation.You -> node(nodeContext) {
-                Text(text = "You!")
-            }
+            Feed -> FeedNode(nodeContext)
+            Inbox -> node(nodeContext) { Text(text = "Inbox!") }
+            Favorites -> node(nodeContext) { Text(text = "Favorites!") }
+            You -> node(nodeContext) { Text(text = "You!") }
         }
     }
 
@@ -67,7 +62,7 @@ class MainNode(
         }
     }
 
-    private fun navigateTo(target: MainNavigation) {
+    private fun navigateTo(target: HomeNavigation) {
         val index = spotlightItems
             .lastIndexOf(target)
             .toFloat()
@@ -76,7 +71,7 @@ class MainNode(
     }
 }
 
-private fun NodeContext.buildSpotlight(): Spotlight<MainNavigation> {
+private fun NodeContext.buildSpotlight(): Spotlight<HomeNavigation> {
     return Spotlight(
         model = SpotlightModel(
             items = spotlightItems,
@@ -86,10 +81,5 @@ private fun NodeContext.buildSpotlight(): Spotlight<MainNavigation> {
     )
 }
 
-val spotlightItems: List<MainNavigation>
-    get() = listOf(
-        MainNavigation.Feed,
-        MainNavigation.Inbox,
-        MainNavigation.Favorites,
-        MainNavigation.You,
-    )
+val spotlightItems: List<HomeNavigation>
+    get() = listOf(Feed, Inbox, Favorites, You)

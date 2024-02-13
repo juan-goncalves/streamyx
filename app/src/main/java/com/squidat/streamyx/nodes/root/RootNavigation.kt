@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 sealed interface RootNavigation : Parcelable {
 
     @Parcelize
-    data object Main : RootNavigation
+    data object Home : RootNavigation
 
     @Parcelize
     data class VideoPlayer(val video: Video) : RootNavigation

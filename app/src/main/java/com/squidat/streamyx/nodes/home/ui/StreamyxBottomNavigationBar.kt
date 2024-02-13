@@ -1,4 +1,4 @@
-package com.squidat.streamyx.nodes.main.ui
+package com.squidat.streamyx.nodes.home.ui
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.BottomNavigationItem
@@ -19,23 +19,23 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.squidat.streamyx.nodes.main.MainNavigation
+import com.squidat.streamyx.nodes.home.HomeNavigation
 
 @Composable
 fun StreamyxBottomNavigationBar(
     modifier: Modifier = Modifier,
-    onTabSelected: (MainNavigation) -> Unit,
+    onTabSelected: (HomeNavigation) -> Unit,
 ) {
-    var selectedTab: MainNavigation by remember { mutableStateOf(MainNavigation.Feed) }
+    var selectedTab: HomeNavigation by remember { mutableStateOf(HomeNavigation.Feed) }
 
     BottomAppBar(modifier = modifier) {
         BottomNavigationItem(
-            selected = selectedTab == MainNavigation.Feed,
+            selected = selectedTab == HomeNavigation.Feed,
             selectedContentColor = MaterialTheme.colorScheme.primary,
             unselectedContentColor = Color.DarkGray,
             onClick = {
-                selectedTab = MainNavigation.Feed
-                onTabSelected(MainNavigation.Feed)
+                selectedTab = HomeNavigation.Feed
+                onTabSelected(HomeNavigation.Feed)
             },
             label = {
                 Text(text = "Home", style = MaterialTheme.typography.labelMedium)
@@ -49,12 +49,12 @@ fun StreamyxBottomNavigationBar(
             },
         )
         BottomNavigationItem(
-            selected = selectedTab == MainNavigation.Inbox,
+            selected = selectedTab == HomeNavigation.Inbox,
             selectedContentColor = MaterialTheme.colorScheme.primary,
             unselectedContentColor = Color.DarkGray,
             onClick = {
-                selectedTab = MainNavigation.Inbox
-                onTabSelected(MainNavigation.Inbox)
+                selectedTab = HomeNavigation.Inbox
+                onTabSelected(HomeNavigation.Inbox)
             },
             label = {
                 Text(text = "Inbox", style = MaterialTheme.typography.labelMedium)
@@ -68,12 +68,12 @@ fun StreamyxBottomNavigationBar(
             },
         )
         BottomNavigationItem(
-            selected = selectedTab == MainNavigation.Favorites,
+            selected = selectedTab == HomeNavigation.Favorites,
             selectedContentColor = MaterialTheme.colorScheme.primary,
             unselectedContentColor = Color.DarkGray,
             onClick = {
-                selectedTab = MainNavigation.Favorites
-                onTabSelected(MainNavigation.Favorites)
+                selectedTab = HomeNavigation.Favorites
+                onTabSelected(HomeNavigation.Favorites)
             },
             label = {
                 Text(text = "Favorites", style = MaterialTheme.typography.labelMedium)
@@ -87,12 +87,12 @@ fun StreamyxBottomNavigationBar(
             },
         )
         BottomNavigationItem(
-            selected = selectedTab == MainNavigation.You,
+            selected = selectedTab == HomeNavigation.You,
             selectedContentColor = MaterialTheme.colorScheme.primary,
             unselectedContentColor = Color.DarkGray,
             onClick = {
-                selectedTab = MainNavigation.You
-                onTabSelected(MainNavigation.You)
+                selectedTab = HomeNavigation.You
+                onTabSelected(HomeNavigation.You)
             },
             label = {
                 Text(text = "You", style = MaterialTheme.typography.labelMedium)

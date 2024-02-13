@@ -1,4 +1,4 @@
-package com.squidat.streamyx.nodes.main.ui
+package com.squidat.streamyx.nodes.home.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

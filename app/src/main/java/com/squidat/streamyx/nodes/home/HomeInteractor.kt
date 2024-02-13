@@ -1,4 +1,4 @@
-package com.squidat.streamyx.nodes.main
+package com.squidat.streamyx.nodes.home
 
 import com.bumble.appyx.navigation.clienthelper.interactor.Interactor
 import com.bumble.appyx.navigation.lifecycle.Lifecycle
@@ -6,7 +6,7 @@ import com.squidat.streamyx.nodes.feed.FeedNode
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class MainInteractor : Interactor<MainNode>() {
+class HomeInteractor : Interactor<MainNode>() {
 
     override fun onCreate(lifecycle: Lifecycle) {
         whenChildAttached(FeedNode::class) { commonLifecycle, child ->

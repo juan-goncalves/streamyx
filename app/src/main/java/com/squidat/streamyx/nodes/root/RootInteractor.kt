@@ -2,7 +2,7 @@ package com.squidat.streamyx.nodes.root
 
 import com.bumble.appyx.navigation.clienthelper.interactor.Interactor
 import com.bumble.appyx.navigation.lifecycle.Lifecycle
-import com.squidat.streamyx.nodes.main.MainNode
+import com.squidat.streamyx.nodes.home.MainNode
 import com.squidat.streamyx.nodes.video_player.VideoPlayerNode
 import com.squidat.streamyx.picture_in_picture.PictureInPicture
 import com.squidat.streamyx.picture_in_picture.operation.dismiss
