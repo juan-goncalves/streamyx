@@ -32,7 +32,6 @@ class FloatingVisualization<InteractionTarget : Any>(
         return listOfNotNull(
             MatchedTargetUiState(activeElement, Active),
             MatchedTargetUiState(stashedElement, Hidden),
-            *toCoreUiTargets(),
         )
     }
 
@@ -40,21 +39,14 @@ class FloatingVisualization<InteractionTarget : Any>(
         return listOfNotNull(
             MatchedTargetUiState(activeElement, Active),
             MatchedTargetUiState(minimizedElement, Minimized),
-            *toCoreUiTargets(),
         )
     }
 
     private fun State.Standalone<InteractionTarget>.toUiTargets(): List<MatchedTargetUiState<InteractionTarget, TargetUiState>> {
         return listOfNotNull(
             MatchedTargetUiState(activeElement, Active),
-            *toCoreUiTargets(),
+            if (created != null) MatchedTargetUiState(created, Hidden) else null,
+            if (dismissed != null) MatchedTargetUiState(dismissed, Dismissed) else null,
         )
-    }
-
-    private fun State<InteractionTarget>.toCoreUiTargets(): Array<MatchedTargetUiState<InteractionTarget, TargetUiState>> {
-        return (destroyed + created)
-            .filterNotNull()
-            .map { element -> MatchedTargetUiState(element, Hidden) }
-            .toTypedArray()
     }
 }

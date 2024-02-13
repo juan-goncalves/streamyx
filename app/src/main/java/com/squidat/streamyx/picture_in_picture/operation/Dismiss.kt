@@ -24,7 +24,7 @@ data class Dismiss<InteractionTarget : Any>(
         return when (fromState) {
             is State.MinimizedOverlay -> State.Standalone(
                 activeElement = fromState.activeElement,
-                destroyed = fromState.destroyed + fromState.minimizedElement,
+                dismissed = fromState.minimizedElement,
             )
 
             else -> error("Invalid operation")

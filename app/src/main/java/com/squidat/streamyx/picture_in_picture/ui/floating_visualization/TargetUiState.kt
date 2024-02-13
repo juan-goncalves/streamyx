@@ -50,3 +50,16 @@ val Hidden = TargetUiState(
     zIndex = ZIndex.Target(1f),
 )
 
+val Dismissed = TargetUiState(
+    height = Height.Target(0.1f),
+    width = Width.Target(0.97f),
+    alpha = Alpha.Target(0f),
+    roundedCorners = RoundedCorners.Target(12),
+    alignment = PositionAlignment.Target(
+        outsideAlignment = BiasAlignment.OutsideAlignment(
+            horizontalBias = -1f,
+            verticalBias = 0.79f,
+        ),
+    ),
+    zIndex = ZIndex.Target(2f),
+)
