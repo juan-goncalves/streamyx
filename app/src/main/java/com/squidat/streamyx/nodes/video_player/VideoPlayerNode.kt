@@ -103,20 +103,9 @@ fun ResponsiveVideoPlayer(
         with(density) { sizePx.height.toDp() }
     }
 
-    val configuration = LocalConfiguration.current
-    val screenPercent = height / configuration.screenHeightDp.dp
-
-    val videoPlayerHeight = lerp(
-        start = 80.dp,
-        stop = 250.dp,
-        fraction = screenPercent,
-    )
-
-    val smallVideoPlayerAlpha = lerpFloat(
-        start = 0f,
-        end = 1f,
-        progress = clamp(1 - (screenPercent - 0.1f) * 2, min = 0f, max = 1f)
-    )
+    val screenPercent = height / LocalConfiguration.current.screenHeightDp.dp
+    val videoPlayerHeight = rememberVideoPlayerHeight(screenPercent)
+    val smallVideoDetailsAlpha = rememberSmallVideoDetailsAlpha(screenPercent)
 
     Surface(
         modifier = modifier
@@ -133,7 +122,7 @@ fun ResponsiveVideoPlayer(
                         .aspectRatio(16f / 9f, matchHeightConstraintsFirst = true),
                 )
                 SmallVideoDetails(
-                    modifier = Modifier.alpha(smallVideoPlayerAlpha),
+                    modifier = Modifier.alpha(smallVideoDetailsAlpha),
                     video = video,
                     onMaximizeSelected = onMaximizeSelected,
                     onDismissSelected = onDismissSelected,
@@ -142,12 +131,31 @@ fun ResponsiveVideoPlayer(
             LargeVideoDetails(
                 modifier = Modifier
                     .weight(1f)
-                    .alpha(1 - smallVideoPlayerAlpha),
+                    .alpha(1 - smallVideoDetailsAlpha),
                 video = video,
             )
         }
     }
 }
+
+@Composable
+private fun rememberVideoPlayerHeight(screenPercent: Float) = remember(screenPercent) {
+    lerp(
+        start = 80.dp,
+        stop = 250.dp,
+        fraction = screenPercent,
+    )
+}
+
+@Composable
+private fun rememberSmallVideoDetailsAlpha(screenPercent: Float) = remember(screenPercent) {
+    lerpFloat(
+        start = 0f,
+        end = 1f,
+        progress = clamp(1 - (screenPercent - 0.1f) * 2, min = 0f, max = 1f)
+    )
+}
+
 
 @Composable
 private fun LargeVideoDetails(
