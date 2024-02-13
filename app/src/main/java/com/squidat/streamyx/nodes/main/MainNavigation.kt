@@ -5,22 +5,15 @@ import kotlinx.parcelize.Parcelize
 
 sealed interface MainNavigation : Parcelable {
 
-    sealed interface Content : MainNavigation {
-        @Parcelize
-        data object Feed : Content
+    @Parcelize
+    data object Feed : MainNavigation
 
-        @Parcelize
-        data object Inbox : Content
+    @Parcelize
+    data object Inbox : MainNavigation
 
-        @Parcelize
-        data object Favorites : Content
+    @Parcelize
+    data object Favorites : MainNavigation
 
-        @Parcelize
-        data object You : Content
-    }
-
-    sealed interface Permanent : MainNavigation {
-        @Parcelize
-        data object NavigationBar : Permanent
-    }
+    @Parcelize
+    data object You : MainNavigation
 }

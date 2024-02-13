@@ -1,6 +1,5 @@
-package com.squidat.streamyx.nodes.bottom_navigation
+package com.squidat.streamyx.nodes.main.ui
 
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
@@ -16,68 +15,27 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.bumble.appyx.navigation.modality.NodeContext
-import com.bumble.appyx.navigation.node.LeafNode
-import com.squidat.streamyx.nodes.bottom_navigation.BottomNavigationNode.Tab
-import com.squidat.streamyx.ui.StreamyxTheme
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.launch
-
-class BottomNavigationNode(
-    nodeContext: NodeContext,
-) : LeafNode(nodeContext) {
-
-    private val _output: MutableSharedFlow<Output> = MutableSharedFlow()
-    val output: Flow<Output> = _output
-
-    sealed interface Output {
-        data class TabSelected(val selection: Tab) : Output
-    }
-
-    enum class Tab {
-        Home,
-        Inbox,
-        Favorites,
-        You,
-    }
-
-    @Composable
-    override fun Content(modifier: Modifier) {
-        val coroutineScope = rememberCoroutineScope()
-
-        StreamyxBottomNavigationBar(
-            modifier = modifier,
-            onTabSelected = { tab ->
-                coroutineScope.launch {
-                    _output.emit(Output.TabSelected(tab))
-                }
-            }
-        )
-    }
-}
+import com.squidat.streamyx.nodes.main.MainNavigation
 
 @Composable
-private fun StreamyxBottomNavigationBar(
+fun StreamyxBottomNavigationBar(
     modifier: Modifier = Modifier,
-    onTabSelected: (Tab) -> Unit,
+    onTabSelected: (MainNavigation) -> Unit,
 ) {
-    var selectedTab by remember { mutableStateOf(Tab.Home) }
+    var selectedTab: MainNavigation by remember { mutableStateOf(MainNavigation.Feed) }
 
     BottomAppBar(modifier = modifier) {
         BottomNavigationItem(
-            selected = selectedTab == Tab.Home,
+            selected = selectedTab == MainNavigation.Feed,
             selectedContentColor = MaterialTheme.colorScheme.primary,
             unselectedContentColor = Color.DarkGray,
             onClick = {
-                selectedTab = Tab.Home
-                onTabSelected(Tab.Home)
+                selectedTab = MainNavigation.Feed
+                onTabSelected(MainNavigation.Feed)
             },
             label = {
                 Text(text = "Home", style = MaterialTheme.typography.labelMedium)
@@ -91,12 +49,12 @@ private fun StreamyxBottomNavigationBar(
             },
         )
         BottomNavigationItem(
-            selected = selectedTab == Tab.Inbox,
+            selected = selectedTab == MainNavigation.Inbox,
             selectedContentColor = MaterialTheme.colorScheme.primary,
             unselectedContentColor = Color.DarkGray,
             onClick = {
-                selectedTab = Tab.Inbox
-                onTabSelected(Tab.Inbox)
+                selectedTab = MainNavigation.Inbox
+                onTabSelected(MainNavigation.Inbox)
             },
             label = {
                 Text(text = "Inbox", style = MaterialTheme.typography.labelMedium)
@@ -110,12 +68,12 @@ private fun StreamyxBottomNavigationBar(
             },
         )
         BottomNavigationItem(
-            selected = selectedTab == Tab.Favorites,
+            selected = selectedTab == MainNavigation.Favorites,
             selectedContentColor = MaterialTheme.colorScheme.primary,
             unselectedContentColor = Color.DarkGray,
             onClick = {
-                selectedTab = Tab.Favorites
-                onTabSelected(Tab.Favorites)
+                selectedTab = MainNavigation.Favorites
+                onTabSelected(MainNavigation.Favorites)
             },
             label = {
                 Text(text = "Favorites", style = MaterialTheme.typography.labelMedium)
@@ -129,12 +87,12 @@ private fun StreamyxBottomNavigationBar(
             },
         )
         BottomNavigationItem(
-            selected = selectedTab == Tab.You,
+            selected = selectedTab == MainNavigation.You,
             selectedContentColor = MaterialTheme.colorScheme.primary,
             unselectedContentColor = Color.DarkGray,
             onClick = {
-                selectedTab = Tab.You
-                onTabSelected(Tab.You)
+                selectedTab = MainNavigation.You
+                onTabSelected(MainNavigation.You)
             },
             label = {
                 Text(text = "You", style = MaterialTheme.typography.labelMedium)
@@ -150,13 +108,3 @@ private fun StreamyxBottomNavigationBar(
     }
 }
 
-@Preview
-@Composable
-private fun StreamyxBottomNavigationBarPreview() {
-    StreamyxTheme {
-        StreamyxBottomNavigationBar(
-            modifier = Modifier.fillMaxWidth(),
-            onTabSelected = {},
-        )
-    }
-}
