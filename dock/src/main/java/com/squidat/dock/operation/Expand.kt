@@ -3,12 +3,12 @@ package com.squidat.dock.operation
 import androidx.compose.animation.core.AnimationSpec
 import com.bumble.appyx.interactions.core.model.transition.BaseOperation
 import com.bumble.appyx.interactions.core.model.transition.Operation
-import com.squidat.dock.Dock
+import com.squidat.dock.DockComponent
 import com.squidat.dock.DockModel.State
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Maximize<InteractionTarget : Any>(
+data class Expand<InteractionTarget : Any>(
     override var mode: Operation.Mode = Operation.Mode.KEYFRAME
 ) : BaseOperation<State<InteractionTarget>>() {
 
@@ -32,9 +32,9 @@ data class Maximize<InteractionTarget : Any>(
     }
 }
 
-fun <InteractionTarget : Any> Dock<InteractionTarget>.maximize(
+fun <InteractionTarget : Any> DockComponent<InteractionTarget>.expand(
     mode: Operation.Mode = Operation.Mode.KEYFRAME,
     animationSpec: AnimationSpec<Float>? = null,
 ) {
-    operation(operation = Maximize(mode), animationSpec = animationSpec)
+    operation(operation = Expand(mode), animationSpec = animationSpec)
 }

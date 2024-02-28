@@ -4,7 +4,7 @@ import androidx.compose.animation.core.AnimationSpec
 import com.bumble.appyx.interactions.core.asElement
 import com.bumble.appyx.interactions.core.model.transition.BaseOperation
 import com.bumble.appyx.interactions.core.model.transition.Operation
-import com.squidat.dock.Dock
+import com.squidat.dock.DockComponent
 import com.squidat.dock.DockModel.State
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
@@ -46,7 +46,7 @@ data class Open<InteractionTarget : Any>(
     }
 }
 
-fun <InteractionTarget : Any> Dock<InteractionTarget>.open(
+fun <InteractionTarget : Any> DockComponent<InteractionTarget>.open(
     interactionTarget: InteractionTarget,
     mode: Operation.Mode = Operation.Mode.KEYFRAME,
     animationSpec: AnimationSpec<Float>? = null,

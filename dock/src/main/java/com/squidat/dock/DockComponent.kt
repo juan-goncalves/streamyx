@@ -11,14 +11,14 @@ import com.bumble.appyx.interactions.core.ui.gesture.GestureFactory
 import com.bumble.appyx.interactions.core.ui.gesture.GestureSettleConfig
 import com.bumble.appyx.utils.multiplatform.SavedStateMap
 import com.squidat.dock.DockModel.State
-import com.squidat.dock.backpress.MinimizeOnBackPressStrategy
+import com.squidat.dock.backpress.DockOnBackPressStrategy
 import com.squidat.dock.gesture.DragOverlayGesture
 import com.squidat.dock.ui.floating_visualization.FloatingVisualization
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 
-class Dock<InteractionTarget : Any>(
+class DockComponent<InteractionTarget : Any>(
     scope: CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main),
     model: DockModel<InteractionTarget>,
     visualisation: (UiContext) -> Visualisation<InteractionTarget, State<InteractionTarget>>,
@@ -40,18 +40,18 @@ class Dock<InteractionTarget : Any>(
     companion object
 }
 
-fun <InteractionTarget : Any> Dock.Companion.create(
+fun <InteractionTarget : Any> DockComponent.Companion.create(
     defaultItem: InteractionTarget,
     savedStateMap: SavedStateMap?,
-): Dock<InteractionTarget> {
+): DockComponent<InteractionTarget> {
     val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
-    return Dock(
+    return DockComponent(
         scope = scope,
         model = DockModel(defaultItem, savedStateMap),
         visualisation = { FloatingVisualization(it) },
         gestureFactory = { DragOverlayGesture(it) },
         gestureSettleConfig = GestureSettleConfig(completionThreshold = 0.3f),
-        backPressStrategy = MinimizeOnBackPressStrategy(scope),
+        backPressStrategy = DockOnBackPressStrategy(scope),
     )
 }

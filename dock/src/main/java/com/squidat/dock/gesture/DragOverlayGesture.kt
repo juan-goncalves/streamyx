@@ -10,8 +10,8 @@ import com.bumble.appyx.interactions.core.ui.gesture.Gesture
 import com.bumble.appyx.interactions.core.ui.gesture.GestureFactory
 import com.bumble.appyx.interactions.core.ui.gesture.dragDirection4
 import com.squidat.dock.DockModel.State
-import com.squidat.dock.operation.Maximize
-import com.squidat.dock.operation.Minimize
+import com.squidat.dock.operation.Expand
+import com.squidat.dock.operation.Dock
 
 class DragOverlayGesture<InteractionTarget : Any>(
     private val transitionBounds: TransitionBounds,
@@ -34,7 +34,7 @@ class DragOverlayGesture<InteractionTarget : Any>(
     private fun minimizeOnDragDown(direction: Drag.Direction4): Gesture<InteractionTarget, State<InteractionTarget>> {
         return when (direction) {
             DOWN -> Gesture(
-                operation = Minimize(),
+                operation = Dock(),
                 completeAt = Offset(x = 0f, y = transitionBounds.screenHeightPx.toFloat()),
             )
 
@@ -45,7 +45,7 @@ class DragOverlayGesture<InteractionTarget : Any>(
     private fun maximizeOnDragUp(direction: Drag.Direction4): Gesture<InteractionTarget, State<InteractionTarget>> {
         return when (direction) {
             UP -> Gesture(
-                operation = Maximize(),
+                operation = Expand(),
                 completeAt = Offset(x = 0f, y = -transitionBounds.screenHeightPx.toFloat()),
             )
 

@@ -3,7 +3,7 @@ package com.squidat.dock.operation
 import androidx.compose.animation.core.AnimationSpec
 import com.bumble.appyx.interactions.core.model.transition.BaseOperation
 import com.bumble.appyx.interactions.core.model.transition.Operation
-import com.squidat.dock.Dock
+import com.squidat.dock.DockComponent
 import com.squidat.dock.DockModel.State
 import kotlinx.parcelize.Parcelize
 
@@ -32,7 +32,7 @@ data class Dismiss<InteractionTarget : Any>(
     }
 }
 
-fun <InteractionTarget : Any> Dock<InteractionTarget>.dismiss(
+fun <InteractionTarget : Any> DockComponent<InteractionTarget>.dismiss(
     mode: Operation.Mode = Operation.Mode.KEYFRAME,
     animationSpec: AnimationSpec<Float>? = null,
 ) {

@@ -4,11 +4,11 @@ import androidx.compose.animation.core.AnimationSpec
 import com.bumble.appyx.interactions.core.model.backpresshandlerstrategies.BaseBackPressHandlerStrategy
 import com.bumble.appyx.mapState
 import com.squidat.dock.DockModel.State
-import com.squidat.dock.operation.Minimize
+import com.squidat.dock.operation.Dock
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.StateFlow
 
-class MinimizeOnBackPressStrategy<InteractionTarget : Any>(
+class DockOnBackPressStrategy<InteractionTarget : Any>(
     private val scope: CoroutineScope,
     private val animationSpec: AnimationSpec<Float>? = null
 ) : BaseBackPressHandlerStrategy<InteractionTarget, State<InteractionTarget>>() {
@@ -20,10 +20,10 @@ class MinimizeOnBackPressStrategy<InteractionTarget : Any>(
     }
 
     override fun handleBackPress(): Boolean {
-        val minimize = Minimize<InteractionTarget>()
+        val dock = Dock<InteractionTarget>()
 
-        if (minimize.isApplicable(transitionModel.output.value.currentTargetState)) {
-            appyxComponent.operation(operation = Minimize(), animationSpec)
+        if (dock.isApplicable(transitionModel.output.value.currentTargetState)) {
+            appyxComponent.operation(operation = Dock(), animationSpec)
         }
 
         return true

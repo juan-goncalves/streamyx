@@ -2,7 +2,7 @@ package com.squidat.streamyx.nodes.root
 
 import com.bumble.appyx.navigation.clienthelper.interactor.Interactor
 import com.bumble.appyx.navigation.lifecycle.Lifecycle
-import com.squidat.dock.Dock
+import com.squidat.dock.DockComponent
 import com.squidat.dock.operation.dismiss
 import com.squidat.dock.operation.open
 import com.squidat.streamyx.nodes.home.MainNode
@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class RootInteractor(
-    private val dock: Dock<RootNavigation>,
+    private val dock: DockComponent<RootNavigation>,
 ) : Interactor<RootNode>() {
 
 
@@ -29,9 +29,9 @@ class RootInteractor(
         lifecycle.coroutineScope.launch {
             output.collectLatest { output ->
                 when (output) {
-                    is MainNode.Output.VideoSelected -> {
-                        dock.open(RootNavigation.VideoPlayer(output.video))
-                    }
+                    is MainNode.Output.VideoSelected -> dock.open(
+                        interactionTarget = RootNavigation.VideoPlayer(output.video),
+                    )
                 }
             }
         }
@@ -42,9 +42,7 @@ class RootInteractor(
             output.collectLatest { output ->
                 when (output) {
                     is VideoPlayerNode.Output.MaximizeSelected -> dock.open(
-                        RootNavigation.VideoPlayer(
-                            output.video
-                        )
+                        interactionTarget = RootNavigation.VideoPlayer(output.video),
                     )
 
                     is VideoPlayerNode.Output.DismissSelected -> dock.dismiss()

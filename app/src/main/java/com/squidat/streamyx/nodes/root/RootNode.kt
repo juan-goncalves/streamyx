@@ -5,14 +5,14 @@ import androidx.compose.ui.Modifier
 import com.bumble.appyx.navigation.composable.AppyxNavigationContainer
 import com.bumble.appyx.navigation.modality.NodeContext
 import com.bumble.appyx.navigation.node.Node
-import com.squidat.dock.Dock
+import com.squidat.dock.DockComponent
 import com.squidat.dock.create
 import com.squidat.streamyx.nodes.home.MainNode
 import com.squidat.streamyx.nodes.video_player.VideoPlayerNode
 
 class RootNode(
     nodeContext: NodeContext,
-    private val dock: Dock<RootNavigation> = Dock.create(
+    private val dock: DockComponent<RootNavigation> = DockComponent.create(
         defaultItem = RootNavigation.Home,
         savedStateMap = nodeContext.savedStateMap,
     ),
