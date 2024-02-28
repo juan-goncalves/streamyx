@@ -24,25 +24,20 @@ import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.IntSize
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
 import com.bumble.appyx.interactions.core.ui.math.clamp
 import com.bumble.appyx.interactions.core.ui.math.lerpFloat
+import com.bumble.appyx.interactions.core.ui.property.impl.Height
+import com.bumble.appyx.interactions.core.ui.property.motionPropertyRenderValue
 import com.bumble.appyx.navigation.modality.NodeContext
 import com.bumble.appyx.navigation.node.LeafNode
 import com.squidat.streamyx.data.Videos
@@ -96,21 +91,11 @@ fun ResponsiveVideoPlayer(
     onMaximizeSelected: () -> Unit,
     onDismissSelected: () -> Unit,
 ) {
-    var sizePx by remember { mutableStateOf(IntSize.Zero) }
-    val density = LocalDensity.current
+    val relativeHeight = motionPropertyRenderValue<Float, Height>() ?: 0f
+    val videoPlayerHeight = videoPlayerHeightFor(relativeHeight)
+    val compactVideoDetailsAlpha = compactVideoDetailsAlphaFor(relativeHeight)
 
-    val height = remember(sizePx) {
-        with(density) { sizePx.height.toDp() }
-    }
-
-    val screenPercent = height / LocalConfiguration.current.screenHeightDp.dp
-    val videoPlayerHeight = rememberVideoPlayerHeight(screenPercent)
-    val smallVideoDetailsAlpha = rememberSmallVideoDetailsAlpha(screenPercent)
-
-    Surface(
-        modifier = modifier
-            .onSizeChanged { sizePx = it },
-    ) {
+    Surface(modifier = modifier) {
         Column(modifier = Modifier.fillMaxSize()) {
             Row(
                 modifier = Modifier
@@ -121,44 +106,37 @@ fun ResponsiveVideoPlayer(
                         .fillMaxHeight()
                         .aspectRatio(16f / 9f, matchHeightConstraintsFirst = true),
                 )
-                SmallVideoDetails(
-                    modifier = Modifier.alpha(smallVideoDetailsAlpha),
+                CompactVideoDetails(
+                    modifier = Modifier.alpha(compactVideoDetailsAlpha),
                     video = video,
                     onMaximizeSelected = onMaximizeSelected,
                     onDismissSelected = onDismissSelected,
                 )
             }
-            LargeVideoDetails(
+            ExtendedVideoDetails(
                 modifier = Modifier
                     .weight(1f)
-                    .alpha(1 - smallVideoDetailsAlpha),
+                    .alpha(1 - compactVideoDetailsAlpha),
                 video = video,
             )
         }
     }
 }
 
-@Composable
-private fun rememberVideoPlayerHeight(screenPercent: Float) = remember(screenPercent) {
-    lerp(
-        start = 80.dp,
-        stop = 250.dp,
-        fraction = screenPercent,
-    )
-}
+private fun videoPlayerHeightFor(relativeHeight: Float): Dp = lerp(
+    start = 80.dp,
+    stop = 250.dp,
+    fraction = relativeHeight,
+)
+
+private fun compactVideoDetailsAlphaFor(relativeHeight: Float): Float = lerpFloat(
+    start = 0f,
+    end = 1f,
+    progress = clamp(1 - (relativeHeight - 0.1f) * 2, min = 0f, max = 1f)
+)
 
 @Composable
-private fun rememberSmallVideoDetailsAlpha(screenPercent: Float) = remember(screenPercent) {
-    lerpFloat(
-        start = 0f,
-        end = 1f,
-        progress = clamp(1 - (screenPercent - 0.1f) * 2, min = 0f, max = 1f)
-    )
-}
-
-
-@Composable
-private fun LargeVideoDetails(
+private fun ExtendedVideoDetails(
     modifier: Modifier,
     video: Video,
 ) {
@@ -197,7 +175,7 @@ private fun LargeVideoDetails(
 }
 
 @Composable
-private fun SmallVideoDetails(
+private fun CompactVideoDetails(
     modifier: Modifier,
     video: Video,
     onMaximizeSelected: () -> Unit,
