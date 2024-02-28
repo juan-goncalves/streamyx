@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Streamyx"
 include(":app")
+include(":dock")

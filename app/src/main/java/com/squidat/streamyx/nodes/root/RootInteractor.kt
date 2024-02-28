@@ -2,16 +2,16 @@ package com.squidat.streamyx.nodes.root
 
 import com.bumble.appyx.navigation.clienthelper.interactor.Interactor
 import com.bumble.appyx.navigation.lifecycle.Lifecycle
+import com.squidat.dock.Dock
+import com.squidat.dock.operation.dismiss
+import com.squidat.dock.operation.open
 import com.squidat.streamyx.nodes.home.MainNode
 import com.squidat.streamyx.nodes.video_player.VideoPlayerNode
-import com.squidat.streamyx.picture_in_picture.PictureInPicture
-import com.squidat.streamyx.picture_in_picture.operation.dismiss
-import com.squidat.streamyx.picture_in_picture.operation.open
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class RootInteractor(
-    private val pip: PictureInPicture<RootNavigation>,
+    private val dock: Dock<RootNavigation>,
 ) : Interactor<RootNode>() {
 
 
@@ -30,7 +30,7 @@ class RootInteractor(
             output.collectLatest { output ->
                 when (output) {
                     is MainNode.Output.VideoSelected -> {
-                        pip.open(RootNavigation.VideoPlayer(output.video))
+                        dock.open(RootNavigation.VideoPlayer(output.video))
                     }
                 }
             }
@@ -41,13 +41,13 @@ class RootInteractor(
         lifecycle.coroutineScope.launch {
             output.collectLatest { output ->
                 when (output) {
-                    is VideoPlayerNode.Output.MaximizeSelected -> pip.open(
+                    is VideoPlayerNode.Output.MaximizeSelected -> dock.open(
                         RootNavigation.VideoPlayer(
                             output.video
                         )
                     )
 
-                    is VideoPlayerNode.Output.DismissSelected -> pip.dismiss()
+                    is VideoPlayerNode.Output.DismissSelected -> dock.dismiss()
                 }
             }
         }

@@ -5,20 +5,21 @@ import androidx.compose.ui.Modifier
 import com.bumble.appyx.navigation.composable.AppyxNavigationContainer
 import com.bumble.appyx.navigation.modality.NodeContext
 import com.bumble.appyx.navigation.node.Node
+import com.squidat.dock.Dock
+import com.squidat.dock.create
 import com.squidat.streamyx.nodes.home.MainNode
 import com.squidat.streamyx.nodes.video_player.VideoPlayerNode
-import com.squidat.streamyx.picture_in_picture.PictureInPicture
-import com.squidat.streamyx.picture_in_picture.PictureInPictureModel
-import com.squidat.streamyx.picture_in_picture.gesture.DragOverlayGesture
-import com.squidat.streamyx.picture_in_picture.ui.floating_visualization.FloatingVisualization
 
 class RootNode(
     nodeContext: NodeContext,
-    private val pip: PictureInPicture<RootNavigation> = nodeContext.buildPictureInPicture(),
+    private val dock: Dock<RootNavigation> = Dock.create(
+        defaultItem = RootNavigation.Home,
+        savedStateMap = nodeContext.savedStateMap,
+    ),
 ) : Node<RootNavigation>(
     nodeContext = nodeContext,
-    appyxComponent = pip,
-    plugins = listOf(RootInteractor(pip)),
+    appyxComponent = dock,
+    plugins = listOf(RootInteractor(dock)),
 ) {
 
     override fun buildChildNode(navTarget: RootNavigation, nodeContext: NodeContext): Node<*> {
@@ -30,17 +31,6 @@ class RootNode(
 
     @Composable
     override fun Content(modifier: Modifier) {
-        AppyxNavigationContainer(modifier = modifier, appyxComponent = pip)
+        AppyxNavigationContainer(modifier = modifier, appyxComponent = dock)
     }
-}
-
-private fun NodeContext.buildPictureInPicture(): PictureInPicture<RootNavigation> {
-    return PictureInPicture(
-        model = PictureInPictureModel(
-            defaultItem = RootNavigation.Home,
-            savedStateMap = savedStateMap,
-        ),
-        visualisation = { FloatingVisualization(it) },
-        gestureFactory = { DragOverlayGesture(it) },
-    )
 }
