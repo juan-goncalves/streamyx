@@ -1,4 +1,4 @@
-package com.squidat.streamyx.picture_in_picture.gesture
+package com.squidat.dock.gesture
 
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.unit.Density
@@ -9,9 +9,9 @@ import com.bumble.appyx.interactions.core.ui.gesture.Drag.Direction4.UP
 import com.bumble.appyx.interactions.core.ui.gesture.Gesture
 import com.bumble.appyx.interactions.core.ui.gesture.GestureFactory
 import com.bumble.appyx.interactions.core.ui.gesture.dragDirection4
-import com.squidat.streamyx.picture_in_picture.PictureInPictureModel.State
-import com.squidat.streamyx.picture_in_picture.operation.Maximize
-import com.squidat.streamyx.picture_in_picture.operation.Minimize
+import com.squidat.dock.DockModel.State
+import com.squidat.dock.operation.Maximize
+import com.squidat.dock.operation.Minimize
 
 class DragOverlayGesture<InteractionTarget : Any>(
     private val transitionBounds: TransitionBounds,
@@ -20,7 +20,7 @@ class DragOverlayGesture<InteractionTarget : Any>(
     override fun createGesture(
         state: State<InteractionTarget>,
         delta: Offset,
-        density: Density
+        density: Density,
     ): Gesture<InteractionTarget, State<InteractionTarget>> {
         val direction = dragDirection4(delta)
 

@@ -1,4 +1,4 @@
-package com.squidat.streamyx.picture_in_picture.ui.floating_visualization
+package com.squidat.dock.ui.floating_visualization
 
 import com.bumble.appyx.interactions.core.ui.property.impl.Alpha
 import com.bumble.appyx.interactions.core.ui.property.impl.Height

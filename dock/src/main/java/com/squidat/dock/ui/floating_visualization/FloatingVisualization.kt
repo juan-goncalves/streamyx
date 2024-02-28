@@ -1,11 +1,11 @@
-package com.squidat.streamyx.picture_in_picture.ui.floating_visualization
+package com.squidat.dock.ui.floating_visualization
 
 import androidx.compose.animation.core.SpringSpec
 import com.bumble.appyx.interactions.core.ui.DefaultAnimationSpec
 import com.bumble.appyx.interactions.core.ui.context.UiContext
 import com.bumble.appyx.interactions.core.ui.state.MatchedTargetUiState
 import com.bumble.appyx.transitionmodel.BaseVisualisation
-import com.squidat.streamyx.picture_in_picture.PictureInPictureModel.State
+import com.squidat.dock.DockModel.State
 
 class FloatingVisualization<InteractionTarget : Any>(
     uiContext: UiContext,

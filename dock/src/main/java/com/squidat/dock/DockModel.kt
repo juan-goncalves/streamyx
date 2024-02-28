@@ -1,4 +1,4 @@
-package com.squidat.streamyx.picture_in_picture
+package com.squidat.dock
 
 import android.os.Parcelable
 import com.bumble.appyx.interactions.core.Element
@@ -7,10 +7,10 @@ import com.bumble.appyx.interactions.core.model.transition.BaseTransitionModel
 import com.bumble.appyx.utils.multiplatform.SavedStateMap
 import kotlinx.parcelize.Parcelize
 
-class PictureInPictureModel<InteractionTarget : Any>(
+class DockModel<InteractionTarget : Any>(
     defaultItem: InteractionTarget,
     savedStateMap: SavedStateMap?,
-) : BaseTransitionModel<InteractionTarget, PictureInPictureModel.State<InteractionTarget>>(
+) : BaseTransitionModel<InteractionTarget, DockModel.State<InteractionTarget>>(
     savedStateMap = savedStateMap,
 ) {
 

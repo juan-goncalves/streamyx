@@ -1,14 +1,14 @@
-package com.squidat.streamyx.picture_in_picture.operation
+package com.squidat.dock.operation
 
 import androidx.compose.animation.core.AnimationSpec
 import com.bumble.appyx.interactions.core.model.transition.BaseOperation
 import com.bumble.appyx.interactions.core.model.transition.Operation
-import com.squidat.streamyx.picture_in_picture.PictureInPicture
-import com.squidat.streamyx.picture_in_picture.PictureInPictureModel.State
+import com.squidat.dock.Dock
+import com.squidat.dock.DockModel.State
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Dismiss<InteractionTarget : Any>(
+data class Maximize<InteractionTarget : Any>(
     override var mode: Operation.Mode = Operation.Mode.KEYFRAME
 ) : BaseOperation<State<InteractionTarget>>() {
 
@@ -22,9 +22,9 @@ data class Dismiss<InteractionTarget : Any>(
 
     override fun createTargetState(fromState: State<InteractionTarget>): State<InteractionTarget> {
         return when (fromState) {
-            is State.MinimizedOverlay -> State.Standalone(
-                activeElement = fromState.activeElement,
-                dismissed = fromState.minimizedElement,
+            is State.MinimizedOverlay -> State.ActiveOverlay(
+                stashedElement = fromState.activeElement,
+                activeElement = fromState.minimizedElement,
             )
 
             else -> error("Invalid operation")
@@ -32,9 +32,9 @@ data class Dismiss<InteractionTarget : Any>(
     }
 }
 
-fun <InteractionTarget : Any> PictureInPicture<InteractionTarget>.dismiss(
+fun <InteractionTarget : Any> Dock<InteractionTarget>.maximize(
     mode: Operation.Mode = Operation.Mode.KEYFRAME,
-    animationSpec: AnimationSpec<Float>? = null
+    animationSpec: AnimationSpec<Float>? = null,
 ) {
-    operation(operation = Dismiss(mode), animationSpec = animationSpec)
+    operation(operation = Maximize(mode), animationSpec = animationSpec)
 }

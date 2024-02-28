@@ -1,10 +1,10 @@
-package com.squidat.streamyx.picture_in_picture.operation
+package com.squidat.dock.operation
 
 import androidx.compose.animation.core.AnimationSpec
 import com.bumble.appyx.interactions.core.model.transition.BaseOperation
 import com.bumble.appyx.interactions.core.model.transition.Operation
-import com.squidat.streamyx.picture_in_picture.PictureInPicture
-import com.squidat.streamyx.picture_in_picture.PictureInPictureModel.State
+import com.squidat.dock.Dock
+import com.squidat.dock.DockModel.State
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -32,9 +32,9 @@ data class Minimize<InteractionTarget : Any>(
     }
 }
 
-fun <InteractionTarget : Any> PictureInPicture<InteractionTarget>.minimize(
+fun <InteractionTarget : Any> Dock<InteractionTarget>.minimize(
     mode: Operation.Mode = Operation.Mode.KEYFRAME,
-    animationSpec: AnimationSpec<Float>? = null
+    animationSpec: AnimationSpec<Float>? = null,
 ) {
     operation(operation = Minimize(mode), animationSpec = animationSpec)
 }

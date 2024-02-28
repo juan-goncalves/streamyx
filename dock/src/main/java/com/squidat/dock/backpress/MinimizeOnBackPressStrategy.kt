@@ -1,10 +1,10 @@
-package com.squidat.streamyx.picture_in_picture.backpress
+package com.squidat.dock.backpress
 
 import androidx.compose.animation.core.AnimationSpec
 import com.bumble.appyx.interactions.core.model.backpresshandlerstrategies.BaseBackPressHandlerStrategy
 import com.bumble.appyx.mapState
-import com.squidat.streamyx.picture_in_picture.PictureInPictureModel.State
-import com.squidat.streamyx.picture_in_picture.operation.Minimize
+import com.squidat.dock.DockModel.State
+import com.squidat.dock.operation.Minimize
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.StateFlow
 
